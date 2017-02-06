@@ -1,0 +1,16 @@
+{
+  "name": "next-train-mta",
+  "version": "1.0.0",
+  "description": "Small node app that provides the time till the next train",
+  "main": "main.js",
+  "dependencies": {},
+  "devDependencies": {
+    "axios": "^0.15.3",
+    "moment": "^2.17.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Addison Rodomista",
+  "license": "ISC"
+}
