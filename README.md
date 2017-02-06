@@ -6,3 +6,8 @@ The purpose of this application is to create a countdown timer to the next subwa
 1. Clone this repository 
 2. In terminal, navigate to the root and run ```npm install```
 3. Run the app via ```node main.js```
+
+## Useful resources
+- [MTA Developer Documentation](http://datamine.mta.info/)
+- [Axios](https://github.com/mzabriskie/axios)
+- [Moment](https://momentjs.com/docs/)
