@@ -7,8 +7,8 @@
 /* 
  * NPM packages
  */
-var axios = require('axios');
-var moment = require('moment');
+var axios 	= require('axios');
+var moment 	= require('moment');
 
 /*
  * Subway Identifier
@@ -87,6 +87,7 @@ function getNextSubwayTime() {
 		renderError(err);
 	})
 }
+
 /* 
  * Return the subway schedule given a specified ID
  * @param {string} subway_id
