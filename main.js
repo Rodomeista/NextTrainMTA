@@ -1,6 +1,6 @@
 /*
  * Developed by Addison Rodomista (@rodomeista)
- * February 6th, 2016
+ * February 6th, 2017
  * The purpose of this app is to give a count down timer to a specific subway
  */
 
