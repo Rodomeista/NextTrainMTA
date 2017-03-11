@@ -1,3 +1,4 @@
+'use strict';
 /*
  * Developed by Addison Rodomista (@rodomeista)
  * February 6th, 2017
@@ -6,22 +7,29 @@
 
 /* 
  * NPM packages
+ * Enable these imports if running from node server
  */
-var axios 	= require('axios');
-var moment 	= require('moment');
+// var axios 	= require('axios');
+// var moment 	= require('moment');
 
 /*
  * Subway Identifier
  * Currently set to Greenpoint G North
  * Full list can be found in ./subway_codes.json
  */
-const SUBWAY_ID = "G26N";
+var SUBWAY_ID = "G26N";
 
 /*
  * How often app refreshes. 
  * Defaulted to 30 seconds
  */
-const REFRESH_TIMER = 30*1000;
+var REFRESH_TIMER = 10 * 1000;
+
+/*
+ * DOM Selectors
+ */
+var times_first = document.getElementById("subway-times_first");
+var times_second = document.getElementById("subway-times_second");
 
 /* 
  * given an array of times, determine the closest one to a specified time 
@@ -29,8 +37,8 @@ const REFRESH_TIMER = 30*1000;
  * @param {array}  arrival_times
  */
 function getClosestTime(current_time, arrival_times) {
-	let closest = arrival_times[0];
-	for(var i = 1; i < arrival_times.length; i++) {
+	var closest = arrival_times[0];
+	for (var i = 1; i < arrival_times.length; i++) {
 		// If closest time is less than current time, try next one
 		if (closest < current_time) closest = arrival_times[i];
 		// If the closest number IS the number, return
@@ -51,8 +59,8 @@ function getClosestTime(current_time, arrival_times) {
  * @param {string} next_time
  */
 function getTimeTillNext(current_time, next_time) {
-	var data_current 	= moment(current_time, "HH:mm:ss");
-	var data_next 		= moment(next_time, "HH:mm:ss");
+	var data_current = moment(current_time, "HH:mm:ss");
+	var data_next = moment(next_time, "HH:mm:ss");
 
 	var difference = moment(data_next.diff(data_current)).format("mm:ss");;
 
@@ -65,27 +73,25 @@ function getTimeTillNext(current_time, next_time) {
 function getNextSubwayTime() {
 	// Get the schedule information
 	// TODO: Only update schedule info once a day
-	getSubwaySchedule(SUBWAY_ID)
-	.then(function(data) {
+	getSubwaySchedule(SUBWAY_ID).then(function (data) {
 		// Get just the information for arrivals
-		let arrivals = data.data.result.arrivals;
-		
+		var arrivals = data.data.result.arrivals;
+
 		// Get current time
-		let now = new moment();
-		let time = now.format("HH:mm:ss");
-		
+		var now = moment();
+		var time = now.format("HH:mm:ss");
+
 		// Determine the closest subway time
-		let closest = getClosestTime(time, arrivals);
-		
+		var closest = getClosestTime(time, arrivals);
+
 		// Get the next subway time
-		let time_next = getTimeTillNext(time, closest);
+		var time_next = getTimeTillNext(time, closest);
 
 		// Render to the Pi
 		renderNext(time_next);
-	})
-	.catch(function(err) {
+	})["catch"](function (err) {
 		renderError(err);
-	})
+	});
 }
 
 /* 
@@ -93,7 +99,7 @@ function getNextSubwayTime() {
  * @param {string} subway_id
  */
 function getSubwaySchedule(subway_id) {
-	return axios.get(`http://mtaapi.herokuapp.com/api?id=${subway_id}`)
+	return axios.get("http://mtaapi.herokuapp.com/api?id=" + subway_id);
 }
 
 /* 
@@ -101,7 +107,8 @@ function getSubwaySchedule(subway_id) {
  * @param {string} time_next
  */
 function renderNext(time_next) {
-	console.log(`The next subway is in ${time_next}`)
+	times_first.innerHTML = formatTextResponse(time_next) + "min";
+	console.log("The next subway is in " + time_next);
 }
 
 /* 
@@ -110,6 +117,20 @@ function renderNext(time_next) {
  */
 function renderError(err) {
 	console.error(data);
+}
+
+/* 
+ * Remove the seconds from the timed response and any leading 0's
+ * @param {string} text
+ */
+function formatTextResponse(text) {
+	// If leading 0, remove it
+	text = text.split(":");
+	text = text[0];
+	if (text[0] == "0") {
+		text = text[1];
+	}
+	return text;
 }
 
 /* 
@@ -124,7 +145,3 @@ function loop() {
  * Start the app
  */
 loop();
-
-
-
-

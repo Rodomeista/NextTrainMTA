@@ -1,0 +1,40 @@
+@import 'base/variables';
+
+@import 'base/normalize';
+@import 'base/global';
+
+#app-container,
+#app-content {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	 flex-basis: 0;
+}
+
+#app-container {
+	width: 100vw;
+	height: 100vh;
+	background-color: black;
+	color: white;
+	font-size: 10rem;
+}
+
+#app-content {
+	
+}
+
+#subway-logo {
+	width: 30vw;
+	height: 30vw;
+}
+
+#subway-times {
+	
+	#subway-times_first {
+		
+	}
+
+	#subway-times_second {
+		
+	}
+}
