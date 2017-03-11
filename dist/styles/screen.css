@@ -358,6 +358,26 @@ body {
   height: 100%;
   font-size: 62.5%; }
 
+@-webkit-keyframes intro_easeIn {
+  0% {
+    -webkit-transform: translateY(5rem);
+            transform: translateY(5rem);
+    opacity: 0; }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1; } }
+
+@keyframes intro_easeIn {
+  0% {
+    -webkit-transform: translateY(5rem);
+            transform: translateY(5rem);
+    opacity: 0; }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1; } }
+
 #app-container,
 #app-content {
   display: -webkit-box;
@@ -376,8 +396,19 @@ body {
   height: 100vh;
   background-color: black;
   color: white;
-  font-size: 10rem; }
+  font-size: 7rem; }
+
+#app-content .app-content_item {
+  margin: 0 3rem; }
+
+.app-content_item.animate {
+  -webkit-animation: intro_easeIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+          animation: intro_easeIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; }
 
 #subway-logo {
   width: 30vw;
   height: 30vw; }
+
+#subway-times {
+  -webkit-animation-delay: 0.05s;
+          animation-delay: 0.05s; }

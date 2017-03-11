@@ -2,6 +2,7 @@
 
 @import 'base/normalize';
 @import 'base/global';
+@import 'animations';
 
 #app-container,
 #app-content {
@@ -16,11 +17,17 @@
 	height: 100vh;
 	background-color: black;
 	color: white;
-	font-size: 10rem;
+	font-size: 7rem;
 }
 
 #app-content {
-	
+	.app-content_item {
+		margin: 0 3rem; 
+	}	
+}
+
+.app-content_item.animate {
+	animation: intro_easeIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
 }
 
 #subway-logo {
@@ -29,6 +36,7 @@
 }
 
 #subway-times {
+	animation-delay: 0.05s;
 	
 	#subway-times_first {
 		

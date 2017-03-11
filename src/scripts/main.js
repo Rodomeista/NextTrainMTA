@@ -137,6 +137,20 @@ function formatTextResponse(text) {
 
 }
 
+function triggerAnimations() {
+	let items = document.querySelectorAll(".app-content_item");
+	for (let num = 0; num < items.length; num++) {
+		console.log(num);
+		items[num].className = "app-content_item";
+	}
+	setTimeout(() => {
+		for (let num = 0; num < items.length; num++) {
+			items[num].className = "app-content_item animate";
+		}
+	}, 50);
+
+}
+
 /* 
  * Main app loop
  */
@@ -144,6 +158,7 @@ function loop() {
 	getNextSubwayTime();
 	setInterval(getNextSubwayTime, REFRESH_TIMER);
 }
+
 
 /* 
  * Start the app

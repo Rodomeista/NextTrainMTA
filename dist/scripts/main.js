@@ -133,6 +133,19 @@ function formatTextResponse(text) {
 	return text;
 }
 
+function triggerAnimations() {
+	var items = document.querySelectorAll(".app-content_item");
+	for (var num = 0; num < items.length; num++) {
+		console.log(num);
+		items[num].className = "app-content_item";
+	}
+	setTimeout(function () {
+		for (var num = 0; num < items.length; num++) {
+			items[num].className = "app-content_item animate";
+		}
+	}, 50);
+}
+
 /* 
  * Main app loop
  */
