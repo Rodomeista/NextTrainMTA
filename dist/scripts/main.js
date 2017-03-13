@@ -26,11 +26,21 @@ var SUBWAY_ID = "G26N";
 var REFRESH_TIMER = 10 * 1000;
 
 /*
+ * How long for app to go to sleep
+ */
+var SLEEP_TIMER = 30 * 1000;
+/*
  * DOM Selectors
  */
 var times_first = document.getElementById("subway-times_first");
 var times_second = document.getElementById("subway-times_second");
+var app_container = document.getElementById("app-container");
 
+/*
+ * Primary app timout
+ */
+var app_timeout = undefined;
+var app_state = "sleep";
 /* 
  * given an array of times, determine the closest one to a specified time 
  * @param {string} current_time
@@ -135,15 +145,65 @@ function formatTextResponse(text) {
 
 function triggerAnimations() {
 	var items = document.querySelectorAll(".app-content_item");
-	for (var num = 0; num < items.length; num++) {
-		console.log(num);
-		items[num].className = "app-content_item";
-	}
+	// Reset the animation state
+	resetAnimations();
+
+	// Trigger the animation
 	setTimeout(function () {
 		for (var num = 0; num < items.length; num++) {
 			items[num].className = "app-content_item animate";
 		}
-	}, 50);
+	}, 1);
+}
+
+function resetAnimations() {
+	var items = document.querySelectorAll(".app-content_item");
+	for (var num = 0; num < items.length; num++) {
+		console.log(num);
+		items[num].className = "app-content_item";
+	}
+}
+
+/* 
+ * Bind click events
+ */
+function bindClickEvents() {
+	app_container.onclick = function () {
+		if (app_state == "sleep") {
+			triggerAnimations();
+		}
+		resetSleepTimer();
+	};
+}
+
+function resetSleepTimer() {
+	console.log("timeout cleared");
+	setSleepState(false);
+	clearTimeout(app_timeout);
+	sleepTimer();
+}
+
+function sleepTimer() {
+	app_timeout = setTimeout(function () {
+		setSleepState(true);
+	}, SLEEP_TIMER);
+}
+
+function goToSleep() {
+	clearTimeout(app_timeout);
+	setSleepState(true);
+	resetAnimations();
+}
+
+function setSleepState(_bool) {
+	if (_bool) {
+		app_container.className = "sleep";
+		app_state = "sleep";
+		resetAnimations();
+	} else {
+		app_container.className = "";
+		app_state = "active";
+	}
 }
 
 /* 
@@ -157,4 +217,6 @@ function loop() {
 /* 
  * Start the app
  */
+bindClickEvents();
+sleepTimer();
 loop();

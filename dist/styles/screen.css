@@ -356,7 +356,8 @@ th {
 body {
   width: 100%;
   height: 100%;
-  font-size: 62.5%; }
+  font-size: 62.5%;
+  background-color: black; }
 
 @-webkit-keyframes intro_easeIn {
   0% {
@@ -396,12 +397,17 @@ body {
   height: 100vh;
   background-color: black;
   color: white;
-  font-size: 7rem; }
+  font-size: 7rem;
+  -webkit-transition: opacity 0.5s linear;
+          transition: opacity 0.5s linear; }
+  #app-container.sleep {
+    opacity: 0; }
 
 #app-content .app-content_item {
   margin: 0 3rem; }
 
 .app-content_item.animate {
+  opacity: 1;
   -webkit-animation: intro_easeIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
           animation: intro_easeIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; }
 

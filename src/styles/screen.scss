@@ -18,7 +18,12 @@
 	background-color: black;
 	color: white;
 	font-size: 7rem;
+	transition: opacity 0.5s linear;
+	&.sleep {
+		opacity: 0;
+	}
 }
+
 
 #app-content {
 	.app-content_item {
@@ -27,6 +32,7 @@
 }
 
 .app-content_item.animate {
+	opacity: 1;
 	animation: intro_easeIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
 }
 
